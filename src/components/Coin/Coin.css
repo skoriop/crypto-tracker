@@ -16,7 +16,7 @@
     display: flex;
     align-items: center;
     padding-right: 24px;
-    min-width: 300px;
+    min-width: 275px;
 }
 
 .coin h1 {
@@ -42,19 +42,21 @@
 }
 
 .coin-price {
-    width: 110px;
+    width: 115px;
 }
 
 .coin-volume {
-    width: 155px;
+    width: 165px;
 }
 
 .coin-marketcap {
-    width: 230px;
+    width: 200px;
+    padding-right: 15px;
 }
 
 .coin-percent {
-    width: 100px;
+    text-align: right;
+    min-width: 110px;
 }
 
 .red {

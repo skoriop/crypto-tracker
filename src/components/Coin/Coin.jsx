@@ -22,15 +22,16 @@ const Coin = ({
                     <p className='coin-price'>${price}</p>
                     <p className='coin-volume'>${volume.toLocaleString()}</p>
 
-                    {priceChange < 0 ?
-                        <p className='coin-percent red'>{priceChange.toFixed(4)}%</p>
-                    :
-                        <p className='coin-percent green'>{priceChange.toFixed(4)}%</p>
+                    {
+                        typeof priceChange !== 'undefined' ?
+                            priceChange < 0 ?
+                                <p className='coin-percent red'>{priceChange.toFixed(4)}%</p>
+                            :
+                                <p className='coin-percent green'>{priceChange.toFixed(4)}%</p>
+                        : <p className='coin-percent red'></p>
                     }
 
-                    <p className='coin-marketcap'>
-                        Market Cap: ${marketcap.toLocaleString()}
-                    </p>
+                    <p className='coin-marketcap'>${marketcap.toLocaleString()}</p>
                 </div>
             </div>
         </div>
