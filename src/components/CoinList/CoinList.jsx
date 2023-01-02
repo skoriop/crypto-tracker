@@ -4,8 +4,8 @@ import axios from "axios";
 import Coin from "../Coin/Coin";
 import "./CoinList.css"
 
-function CoinList()
-{
+const CoinList = () => {
+    
     const [coins, setCoins] = useState([]);
     const [search, setSearch] = useState("");
 

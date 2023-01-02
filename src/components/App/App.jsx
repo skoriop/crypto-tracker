@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import MarketGraph from "../MarketGraph/MarketGraph";
 import CoinList from "../CoinList/CoinList";
 
-function App() {
+const App = () => {
     return (
 		<div>
 			<Routes>

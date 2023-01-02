@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import "./Coin.css";
 
 const Coin = ({
@@ -19,10 +20,7 @@ const Coin = ({
                     <img src={image} alt="crypto" />
                     <h1>
                     {
-                        typeof id === 'undefined' ?
-                            name
-                        :
-                            <Link to={`/${id}`}>{name}</Link>
+                        (typeof id === 'undefined') ? name : <Link to={`/${id}`}>{name}</Link>
                     }
                     </h1>
                     <p className="coin-symbol">{symbol}</p>

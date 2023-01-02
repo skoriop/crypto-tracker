@@ -1,4 +1,4 @@
-.time-options-group button {
+.time-options button {
     background-color: #04AA6D; /* Green background */
     border: 1px solid green; /* Green border */
     color: white; /* White text */
@@ -7,18 +7,18 @@
     float: left; /* Float the buttons side by side */
   }
   
-  .time-options-group button:not(:last-child) {
+  .time-options button:not(:last-child) {
     border-right: none; /* Prevent double borders */
   }
   
   /* Clear floats (clearfix hack) */
-  .time-options-group:after {
+  .time-options:after {
     content: "";
     clear: both;
     display: table;
   }
   
   /* Add a background color on hover */
-  .time-options-group button:hover {
+  .time-options button:hover {
     background-color: #3e8e41;
   }

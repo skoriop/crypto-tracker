@@ -11,10 +11,10 @@ export const TimeOptions = {
 
 const TimeFilter = ({stateChanger}) => {
     return (
-        <div className="time-options-group">
+        <div className="time-options">
         {
             Object.entries(TimeOptions).map((a, b) =>
-                <button key={a[1]} className='time-option' onClick={() => stateChanger(a[1])}>{a[0]}</button>
+                <button key={a[1]} onClick={() => stateChanger(a[1])}> {a[0]} </button>
             )
         }
         </div>
