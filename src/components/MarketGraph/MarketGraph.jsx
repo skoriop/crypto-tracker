@@ -16,7 +16,7 @@ export const TimeFilters = {
 
 function MarketGraph(props)
 {
-    const [timeView, setTimeView] = useState(TimeFilters.P3M);
+    const [timeView, setTimeView] = useState(TimeFilters.P1M);
     const coin = useParams().coin;
     var [{ data, loading, error }] = useAxios({
         url: `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=${timeView}`,
@@ -38,7 +38,7 @@ function MarketGraph(props)
     {
         coinData.push({
             "time": parseFloat(parseFloat(data.prices[i][0]).toFixed(4)),
-            "price": parseFloat(parseFloat(data.prices[i][1]).toFixed(2)),
+            "price": parseFloat(parseFloat(data.prices[i][1]).toFixed(5)),
         });
     }
     coinData.sort((a, b) => a.time - b.time);
@@ -63,7 +63,7 @@ function MarketGraph(props)
                     <CartesianGrid stroke="#555" strokeDasharray="5 5" />
                     <XAxis dataKey="time" />
                     <YAxis type="number" domain={['auto', 'auto']} />
-                    <Tooltip />
+                    <Tooltip formatter={(value, name, props) => [`$${value}`, "Price"]}/>
                     <Line type="monotone" dataKey="price" stroke="#8884d8" dot={false} />
                 </LineChart>
             </div>
