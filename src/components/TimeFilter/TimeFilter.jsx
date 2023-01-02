@@ -12,11 +12,19 @@ export const TimeOptions = {
 const TimeFilter = ({stateChanger}) => {
     return (
         <div className="time-options">
-        {
-            Object.entries(TimeOptions).map((a, b) =>
-                <button key={a[1]} onClick={() => stateChanger(a[1])}> {a[0]} </button>
-            )
-        }
+            <br/>
+            <br/>
+            {
+                Object.entries(TimeOptions).slice(0, 3).map((a, b) =>
+                    <button key={a[1]} onClick={() => stateChanger(a[1])}> {a[0].replace("P", "")}</button>
+                )
+            }
+            <br/>
+            {
+                Object.entries(TimeOptions).slice(3).map((a, b) =>
+                    <button key={a[1]} onClick={() => stateChanger(a[1])}> {a[0].replace("P", "")}</button>
+                )
+            }
         </div>
     );
 }

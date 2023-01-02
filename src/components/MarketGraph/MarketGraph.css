@@ -11,8 +11,18 @@
     margin-right: 170px;
 }
 
+.coin-header-text {
+    margin-top: 4px;
+    margin-left: 12px;
+}
+
 .coin-graph {
     display: flex;
-    padding: 20px 0 0 50px;
+    padding: 20px 35px 0 30px;
     align-items: center;
+}
+
+.graph-container {
+    display: flex;
+    flex-direction: row;
 }
