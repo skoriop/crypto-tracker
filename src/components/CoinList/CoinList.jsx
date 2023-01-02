@@ -10,7 +10,7 @@ function CoinList()
     const [search, setSearch] = useState("");
 
     useEffect(() => {
-        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=30&page=1&sparkline=false')
+        axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false")
         .then(res => {
             setCoins(res.data);
             console.log(res.data);
@@ -23,15 +23,15 @@ function CoinList()
     const filteredCoins = coins.filter(coin => coin.name.toLowerCase().includes(search.toLowerCase()));
 
     return (
-        <div className='coin-list'>
-            <div className='coin-search'>
-                <h1 className='coin-search-text'>Crypto Dashboard</h1>
+        <div className="coin-list">
+            <div className="coin-search">
+                <h1 className="coin-search-text">Crypto Dashboard</h1>
                 <form>
                     <input
-                        className='coin-search-input'
-                        type='text'
+                        className="coin-search-input"
+                        type="text"
                         onChange={onChange}
-                        placeholder='Search...'
+                        placeholder="Search..."
                     />
                 </form>
             </div>
