@@ -1,28 +1,31 @@
-import {React, useState, useMemo} from "react";
+import {React, useState, useMemo, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import useAxios from "axios-hooks";
+import axios from "axios";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 import "./MarketGraph.css"
+import TimeFilter, { TimeOptions } from "../TimeFilter/TimeFilter";
 
-export const TimeFilters = {
-    P1D: "1",
-    P7D: "7",
-    P1M: "30",
-    P3M: "120",
-    P1Y: "365",
-    ALL: "max",
-}
-
-function MarketGraph(props)
+function MarketGraph()
 {
-    const [timeView, setTimeView] = useState(TimeFilters.P1M);
+    const [timeView, setTimeView] = useState(TimeOptions.P1M);
     const coin = useParams().coin;
     var [{ data, loading, error }] = useAxios({
         url: `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=${timeView}`,
         method: "GET",
     });
     
+
+    const [about, setAbout] = useState({});
+    useEffect(() => {
+        axios.get("https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false")
+        .then(res => {
+            setAbout(res.data);
+        })
+        .catch(err => console.log(err))
+    }, []);
+
     if (typeof data === 'undefined') data = {"prices":[[1, 1]]};
 
     const mappedData = useMemo(() => {
@@ -43,7 +46,7 @@ function MarketGraph(props)
     }
     coinData.sort((a, b) => a.time - b.time);
 
-    if (timeView === TimeFilters.P1M || timeView === TimeFilters.P3M || timeView === TimeFilters.P1Y || timeView === TimeFilters.ALL)
+    if (timeView === TimeOptions.P1M || timeView === TimeOptions.P3M || timeView === TimeOptions.P1Y || timeView === TimeOptions.ALL)
     {
         for (var i = 0; i < coinData.length; i++)
         {
@@ -52,21 +55,27 @@ function MarketGraph(props)
             if (i !== coinData.length - 1) newdate = newdate.slice(0, -5);
             coinData[i].time = newdate;
         }
-        console.log(coinData);
     }
-    console.log(props);
+
     return (
         <div className="market-view">
-            <h1 className="coin-name">{props.name}</h1>
+            <div className="coin-header">
+                <h1>{about.name} ({about.symbol?.toUpperCase()})</h1>
+            </div>
             <div className="coin-graph">
                 <LineChart width={1000} height={500} data={coinData}>
                     <CartesianGrid stroke="#555" strokeDasharray="5 5" />
                     <XAxis dataKey="time" />
                     <YAxis type="number" domain={['auto', 'auto']} />
-                    <Tooltip formatter={(value, name, props) => [`$${value}`, "Price"]}/>
+                    <Tooltip 
+                        formatter={(value, name, props) => [`$${value}`, "Price"]} 
+                        labelStyle={{color: "#afafb6", fontStyle:"italic"}}
+                        contentStyle={{fontStyle:"italic"}}  
+                    />
                     <Line type="monotone" dataKey="price" stroke="#8884d8" dot={false} />
                 </LineChart>
             </div>
+            <TimeFilter stateChanger={setTimeView} />
         </div>
     );
 }
