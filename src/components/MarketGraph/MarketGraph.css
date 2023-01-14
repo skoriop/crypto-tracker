@@ -1,28 +1,28 @@
 .market-view {
-    justify-content: center;
+	justify-content: center;
 }
 
 .coin-header {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: center;
-    margin-top: 30px;
-    margin-right: 170px;
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: center;
+	margin-top: 20px;
+	margin-right: 170px;
 }
 
 .coin-header-text {
-    margin-top: 4px;
-    margin-left: 12px;
+	margin-top: 4px;
+	margin-left: 12px;
 }
 
 .coin-graph {
-    display: flex;
-    padding: 20px 35px 0 30px;
-    align-items: center;
+	display: flex;
+	padding: 20px 35px 0 30px;
+	align-items: center;
 }
 
 .graph-container {
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }

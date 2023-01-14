@@ -4,7 +4,7 @@ import MarketGraph from "../MarketGraph/MarketGraph";
 import CoinList from "../CoinList/CoinList";
 
 const App = () => {
-    return (
+	return (
 		<div>
 			<Routes>
 				<Route exact path="/" element={<CoinList />} />
@@ -12,6 +12,6 @@ const App = () => {
 			</Routes>
 		</div>
 	);
-}
+};
 
 export default App;
