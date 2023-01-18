@@ -12,6 +12,5 @@ It also shows historical market information over various timeframes (from 24H to
 &nbsp;  
 
 ### TODO:
-- Add coin info
 - Add technical indicators (RSI, Bollinger bands etc.)
 - Add market volume graph
