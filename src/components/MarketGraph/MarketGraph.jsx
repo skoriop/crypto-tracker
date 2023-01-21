@@ -16,30 +16,52 @@ import TimeFilter, { TimeOptions } from "../TimeFilter/TimeFilter";
 const MarketGraph = () => {
 	const [timeView, setTimeView] = useState(TimeOptions.P1M);
 	const coin = useParams().coin;
-
-	var [data, setData] = useState(TimeOptions.P1M);
-	useEffect(() => {
-		axios
-			.get(
-				`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=${timeView}`
-			)
-			.then((res) => {
-				setData(res.data);
-			})
-			.catch((err) => console.log(err));
-	}, [coin, timeView]);
-
+	let [data, setData] = useState(TimeOptions.P1M);
 	const [about, setAbout] = useState({});
+
+	// useEffect(() => {
+	// 	axios
+	// 		.get(
+	// 			`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=${timeView}`
+	// 		)
+	// 		.then((res) => {
+	// 			setData(res.data);
+	// 		})
+	// 		.catch((err) => console.log(err));
+	// }, [coin, timeView]);
+
+	// useEffect(() => {
+	// 	axios
+	// 		.get(
+	// 			`https://api.coingecko.com/api/v3/coins/${coin}?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false`
+	// 		)
+	// 		.then((res) => {
+	// 			setAbout(res.data);
+	// 		})
+	// 		.catch((err) => console.log(err));
+	// }, [coin]);
+
+	const getPrices = async (timeView) => {
+		let res = await axios.get(
+			`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=${timeView}`
+		);
+		setData(res.data);
+	};
+
+	const getCoinInfo = async () => {
+		let res = await axios.get(
+			`https://api.coingecko.com/api/v3/coins/${coin}?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false`
+		);
+		setAbout(res.data);
+	};
+
 	useEffect(() => {
-		axios
-			.get(
-				`https://api.coingecko.com/api/v3/coins/${coin}?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false`
-			)
-			.then((res) => {
-				setAbout(res.data);
-			})
-			.catch((err) => console.log(err));
-	}, [coin]);
+		getCoinInfo();
+	}, []);
+
+	useEffect(() => {
+		getPrices(timeView);
+	}, [timeView]);
 
 	var coinData = [];
 	var len = data.prices?.length;
