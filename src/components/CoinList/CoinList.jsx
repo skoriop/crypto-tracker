@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import Coin from "../Coin/Coin";
+import Watchlist from "../Watchlist/Watchlist";
 
 import "./CoinList.css";
 
@@ -26,6 +27,23 @@ const CoinList = () => {
 		coin.name.toLowerCase().includes(search.toLowerCase())
 	);
 
+	const [watchlist, setWatchlist] = useState([]);
+	const [isWatchlistView, setWatchlistView] = useState(false);
+	const addToWatchlist = (id, name, price, symbol, priceChange) => {
+		const arr = watchlist;
+		for (let i = 0; i < arr.length; i++) {
+			if (arr[i].id === id) return;
+		}
+		arr.push({
+			id: id,
+			name: name,
+			price: price,
+			symbol: symbol,
+			priceChange: priceChange,
+		});
+		setWatchlist(arr);
+	};
+
 	return (
 		<div className="coin-list">
 			<div className="coin-search">
@@ -35,32 +53,44 @@ const CoinList = () => {
 						className="coin-search-input"
 						type="text"
 						onChange={onChange}
+						disabled={isWatchlistView}
 						placeholder="Search..."
 					/>
 				</form>
 			</div>
-			<Coin
-				name="Name"
-				price=" Price"
-				marketcap=" Market Cap"
-				volume=" Volume"
-				image="https://clipground.com/images/blank-transparent-png-3.png"
-			/>
-			{filteredCoins.map((coin) => {
-				return (
+			{!isWatchlistView && (
+				<div>
+					<button className="switch-button" onClick={() => setWatchlistView(true)}>
+						Switch to Watchlist
+					</button>
 					<Coin
-						key={coin.id}
-						id={coin.id}
-						name={coin.name}
-						price={coin.current_price}
-						symbol={coin.symbol}
-						marketcap={coin.market_cap}
-						volume={coin.total_volume}
-						image={coin.image}
-						priceChange={coin.price_change_percentage_24h}
+						name="Name"
+						price=" Price"
+						marketcap=" Market Cap"
+						volume=" Volume"
+						image="https://clipground.com/images/blank-transparent-png-3.png"
 					/>
-				);
-			})}
+					{filteredCoins.map((coin) => {
+						return (
+							<Coin
+								key={coin.id}
+								id={coin.id}
+								name={coin.name}
+								price={coin.current_price}
+								symbol={coin.symbol}
+								marketcap={coin.market_cap}
+								volume={coin.total_volume}
+								image={coin.image}
+								priceChange={coin.price_change_percentage_24h}
+								addToWatchlist={addToWatchlist}
+							/>
+						);
+					})}
+				</div>
+			)}
+			{isWatchlistView && (
+				<Watchlist list={watchlist} setList={setWatchlist} setView={setWatchlistView} />
+			)}
 		</div>
 	);
 };
