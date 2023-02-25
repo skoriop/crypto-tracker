@@ -1,0 +1,21 @@
+.card-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 80px;
+	width: 900px;
+	border-bottom: 1px solid #d8d8d8;
+	justify-content: space-between;
+}
+
+.coin-name {
+}
+
+.coin-symbol {
+}
+
+.coin-price {
+}
+
+.coin-pricechange {
+}
